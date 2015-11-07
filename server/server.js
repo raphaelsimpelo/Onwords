@@ -109,8 +109,8 @@ app.post('/api/annotations', function (req, res) {
   var user_id = req.body.user_id;
   var uri = req.body.uri;
   var title = req.body.title;
-  var text = validator.escape(validator.toString(req.body.text));
-  var quote = validator.escape(validator.toString(req.body.quote));
+  var text = validator.toString(req.body.text).replace(/'/, "''");
+  var quote = validator.toString(req.body.quote).replace(/'/, "''");
   var start = req.body.ranges[0].start;
   var end = req.body.ranges[0].end;
   var startOffset = req.body.ranges[0].startOffset;
@@ -1042,7 +1042,7 @@ app.post('/api/uri/gp', function(req,res) {
   var gpObj = req.body;
   var uri = req.body.uri;
   var user_id = req.body.user_id;
-  var generalPost = validator.escape(validator.toString(req.body.generalPost));
+  var generalPost = validator.toString(req.body.generalPost).replace(/'/, "''");;
 
   var updateGP = function(uri, user_id, generalPost) {
     return new Promise(function(resolve,reject){
@@ -1075,7 +1075,7 @@ app.post('/api/comments', function(req,res) {
   var uri = req.body.uri;
   var user_id = req.body.user_id;
   var follower_id = req.body.follower_id;
-  var message = validator.escape(validator.toString(req.body.message));
+  var message = validator.toString(req.body.message).replace(/'/, "''");;
 
   var insertComments =  function(uri,user_id,follower_id,message){
     return new Promise(function(resolve,reject){
